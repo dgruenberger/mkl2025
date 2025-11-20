@@ -1,0 +1,11 @@
+services:
+  nestjs:
+    container_name: nestjs
+    image: nestjs:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    command: "node ./dist/main.js"
