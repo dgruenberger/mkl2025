@@ -13,7 +13,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: "curl http://localhost:3000"
+      test: "curl http://nestjs:3000"
       interval: 1m30s
       timeout: 30s
       retries: 5
@@ -30,7 +30,7 @@ services:
       - TZ=UTC
     restart: unless-stopped
     healthcheck:
-      test: ["mysql -uroot -p123root -e 'SELECT * from mysql.help_topic'"]
+      test: "mysql -uroot -p123root -e 'SELECT * from mysql.help_topic'"
       interval: 1m30s
       timeout: 30s
       retries: 5
