@@ -1,7 +1,7 @@
 services:
   nestjs:
     container_name: nestjs
-    image: nestjs:1.0.3
+    image: nestjs:1.0.4
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,12 +12,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  #   healthcheck:
-  #     test: "curl http://nestjs:3000"
-  #     interval: 1m30s
-  #     timeout: 30s
-  #     retries: 5
-  #     start_period: 30s
+    healthcheck:
+      test: "curl http://nestjs:3000"
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
   db:
     container_name: db

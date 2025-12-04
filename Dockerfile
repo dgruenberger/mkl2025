@@ -10,6 +10,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update package lists and upgrade existing packages for security fixes
 RUN apt update && apt upgrade -y
 
+# Install curl for healthcheck
+RUN apt install -y curl
+
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
