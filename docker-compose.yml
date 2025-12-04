@@ -9,3 +9,30 @@ services:
     ports:
       - 3000:3000
     command: "node ./dist/main.js"
+    depends_on
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: "curl http://localhost:3000"
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  db:
+    container_name: db
+    image: "mariadb:10.11"
+    environment:
+      - MYSQL_USER=nonroot
+      - MYSQL_PASSWORD=nonroot
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=123root
+      - TZ=UTC
+    restart: unless-stopped
+    healthcheck:
+      test: ["mysql -uroot -p123root -e 'SELECT * from mysql.help_topic'"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    command: ["mysqld"]
